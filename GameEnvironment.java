@@ -36,6 +36,6 @@ public class GameEnvironment extends Environment {
 		for(AbstractEntity e : killable)
 			this.entities.remove(e);
 		if (worldPlane.getY() < levelLength)
-			worldPlane.setY(worldPlane.getY()+2);
+			worldPlane.setY(worldPlane.getY()+3);
 	}
 }

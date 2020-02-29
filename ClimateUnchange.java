@@ -20,7 +20,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
-	private int levelLength = 900;
+	private int levelLength = 2500;
 
 	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
@@ -49,10 +49,16 @@ public class ClimateUnchange extends SimpleDisplay{
 		for (int i = 0; i < rock.length; i++) rock[i] = Sprite.loadImage("assets/rock" + (i+1) + ".png");
 
 		// add in acid rain
-		for (int i = 500; i < levelLength+HEIGHT; i += 100)
+		for (int i = 500; i < levelLength*2.22; i += 100)
 		{
-			acidRain.addWorldPlaneSprite(new KillableSprite(randInt(0, WIDTH-rain[0].getWidth()), -i+HEIGHT, rain[randInt(0,rain.length)]));
+			KillableSprite drop = new KillableSprite(randInt(0, WIDTH-rain[0].getWidth()), -i+HEIGHT, rain[randInt(0,rain.length)]);
+			drop.yMovement = 2;
+			acidRain.addWorldPlaneSprite(drop);
 		}
+		// add in BOSS
+		KillableSprite acidBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/coalplant1.png");
+		acidBoss.health = 200;
+		acidRain.addWorldPlaneSprite(acidBoss);
 		// add in trees
 		for (int i = 200; i < levelLength+HEIGHT/3; i += 50)
 		{
@@ -94,7 +100,7 @@ public class ClimateUnchange extends SimpleDisplay{
 	public void update()
 	{
 		long currentTime = System.currentTimeMillis();
-		if(currentTime - lastTime > 10000)
+		if(currentTime - lastTime > 30000)
 		{
 			currentEnvironment = (currentEnvironment+1)%envs.length;
 			player.env = envs[currentEnvironment];
