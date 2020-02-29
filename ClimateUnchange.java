@@ -53,7 +53,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		}
 
 		player = new Player(400,400, acidRain);
-		acidRain.addWorldPlaneSprite(player);
+		acidRain.entities.add(player);
 		
 		acidRain.entities.add(timeZap);
 
@@ -61,7 +61,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		// Ozone
 		GameEnvironment ozone = new GameEnvironment();
 		ozone.bgColor = new Color(180,100,100);
-		ozone.addWorldPlaneSprite(player);
+		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
 
 		this.addKeyListener(new InputHandler(player));
@@ -69,15 +69,18 @@ public class ClimateUnchange extends SimpleDisplay{
 		currentEnvironment = 0;
 
 		player.env = acidRain;
+		player.setParent(player.env.worldPlane);
 	}
 
 	public void update()
 	{
 		long currentTime = System.currentTimeMillis();
-		if(currentTime - lastTime > 10000)
+		if(currentTime - lastTime > 30000)
 		{
 			currentEnvironment = (currentEnvironment+1)%envs.length;
 			player.env = envs[currentEnvironment];
+			player.setParent(player.env.worldPlane);
+			player.setY(Player.SPAWN_POINT.getY());
 			lastTime = currentTime;
 			timeZap.frame = 0;
 			timeZap.play = true;

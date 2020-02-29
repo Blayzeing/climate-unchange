@@ -9,6 +9,7 @@ public class Player extends Sprite {
 
 	public static final Point ORIGIN = new Point(0,0);
 	public static final double SPEED = 7;
+	public static final StaticPoint SPAWN_POINT = new StaticPoint(640,400);
 	public double xVel, yVel;
 	
 	public GameEnvironment env;
@@ -25,8 +26,16 @@ public class Player extends Sprite {
 	public void update(long time)
 	{
 		super.update(time);
+		//Point newPos = new Point(this.getX() + xVel, this.getY() + yVel);
 		this.setX(this.getX() + xVel);
 		this.setY(this.getY() + yVel);
+
+		Point topLeft = this.getGlobalPoint(0);
+		Point bottomRight = this.getGlobalPoint(2);
+		double dx = Math.min(topLeft.getX(), 0) + Math.max(0, bottomRight.getX() - 1280);
+		double dy = Math.min(topLeft.getY(), 0) + Math.max(0, bottomRight.getY() - 720);
+		this.setX(this.getX() - dx);
+		this.setY(this.getY() - dy);
 	}
 
 	public void action()
