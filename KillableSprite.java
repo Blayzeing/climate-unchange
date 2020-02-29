@@ -22,6 +22,6 @@ public class KillableSprite extends Sprite implements Actionable {
 	public void update(long time)
 	{
 		this.setY(this.getY() + yMovement);
-		super.update();
+		super.update(time);
 	}
 }
