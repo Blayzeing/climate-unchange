@@ -10,7 +10,7 @@ public class InteractableSprite extends Sprite implements Actionable {
 	}
 
 	@Override
-	public void action(Environment env)
+	public void action(GameEnvironment env)
 	{
 		System.out.println("I'm a tree");
 	}

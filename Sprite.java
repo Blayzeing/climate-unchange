@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Sprite extends TPPolygonEntity {
 	
@@ -28,20 +29,11 @@ public class Sprite extends TPPolygonEntity {
 
 	public boolean markedForDeath = false;
 
-	public Sprite(double x, double y, String path, int columns, int rows, float fps)
+	public Sprite(double x, double y, BufferedImage img, int columns, int rows, float fps)
 	{
 		super(x,y);
 
-		img = null;
-		try
-		{
-		    img = ImageIO.read(new File(path));
-		}
-		catch (IOException e)
-		{
-		    System.out.println("Error Loading file \""+path+"\":");
-		    System.out.println(e);
-		}
+		this.img = img;
 
 		this.columns = columns;
 		this.rows = rows;
@@ -55,9 +47,17 @@ public class Sprite extends TPPolygonEntity {
 
 		center(true);
 	}
+	public Sprite(double x, double y, String path, int columns, int rows, float fps)
+	{
+		this(x, y, loadImage(path), columns, rows, fps);
+	}
 	public Sprite(double x, double y, String path)
 	{
-		this(x, y, path, 1, 1, (float)24);
+		this(x, y, loadImage(path), 1, 1, (float)24);
+	}
+	public Sprite(double x, double y, BufferedImage img)
+	{
+		this(x, y, img, 1, 1, (float)24);
 	}
 	public void center()
 	{
@@ -105,5 +105,20 @@ public class Sprite extends TPPolygonEntity {
 		}else{
 			lastTime = time;
 		}
+	}
+
+	public static BufferedImage loadImage(String path)
+	{
+		BufferedImage img = null;
+		try
+		{
+		    img = ImageIO.read(new File(path));
+		}
+		catch (IOException e)
+		{
+		    System.out.println("Error Loading file \""+path+"\":");
+		    System.out.println(e);
+		}
+		return img;
 	}
 }
