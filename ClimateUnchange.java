@@ -4,6 +4,8 @@ import blayzeTechUtils.env.nonpolyshapes.*;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import blayzeTechUtils.math.*;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class ClimateUnchange extends SimpleDisplay{
@@ -16,22 +18,39 @@ public class ClimateUnchange extends SimpleDisplay{
 	private int currentEnvironment = 0;
 	private Sprite timeZap = new Sprite(0,0,"images/time-zap.png", 2, 11, (float)27);
 
+	private static final int WIDTH = 1280;
+	private static final int HEIGHT = 720;
+	private int levelLength = 5000;
 
 	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
 	{
 		// Setup
-		super(1280, 720, "Climate Unchange", true, true);
+		super(WIDTH, HEIGHT, "Climate Unchange", true, true);
 		g = this.getGraphics2D();
 		timeZap.center(false);
-		timeZap.setRenderDims(1280,720);
+		timeZap.setRenderDims(WIDTH,HEIGHT);
 		timeZap.playOnce = true;
 
 		
 		// acidRain
 		GameEnvironment acidRain = new GameEnvironment();
 		acidRain.bgColor = Color.GREEN;
-		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
+//		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
+
+		// load acidRain sprites
+		BufferedImage[] rain = new BufferedImage[3];
+		for (int i = 1; i < rain.length; i++) rain[i-1] = Sprite.loadImage("assets/acidrain" + i + ".png");
+		BufferedImage[] tree = new BufferedImage[2];
+		for (int i = 1; i < tree.length; i++) tree[i-1] = Sprite.loadImage("assets/tree" + i + ".png");
+		BufferedImage[] grass = new BufferedImage[5];
+		for (int i = 1; i < grass.length; i++) grass[i-1] = Sprite.loadImage("assets/grass" + i + ".png");
+		
+		// add in trees
+		for (int i = 0; i < levelLength - HEIGHT; i += 75)
+		{
+			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-tree[0].getWidth()), -i+HEIGHT, tree[0]));
+		}
 
 		player = new Player(400,400, acidRain);
 		acidRain.addWorldPlaneSprite(player);
@@ -87,5 +106,10 @@ public class ClimateUnchange extends SimpleDisplay{
 			System.out.println("ERROR:");
 			System.out.println(e);
 		}
+	}
+
+	private static int randInt(int min, int max)
+	{
+		return ThreadLocalRandom.current().nextInt(min, max + 1);
 	}
 }

@@ -27,6 +27,6 @@ public class GameEnvironment extends Environment {
 		}
 		for(AbstractEntity e : killable)
 			this.entities.remove(e);
-		//worldPlane.setY(worldPlane.getY());
+		worldPlane.setY(worldPlane.getY()+2);
 	}
 }
