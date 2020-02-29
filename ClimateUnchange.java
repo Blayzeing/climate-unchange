@@ -20,7 +20,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
-	private int levelLength = 5000;
+	private int levelLength = 900;
 
 	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
@@ -34,7 +34,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 		
 		// acidRain
-		GameEnvironment acidRain = new GameEnvironment();
+		GameEnvironment acidRain = new GameEnvironment(levelLength);
 		acidRain.bgColor = Color.GREEN;
 //		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
 
@@ -47,7 +47,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		for (int i = 1; i < grass.length; i++) grass[i-1] = Sprite.loadImage("assets/grass" + i + ".png");
 		
 		// add in trees
-		for (int i = 0; i < levelLength - HEIGHT; i += 75)
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 50)
 		{
 			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-tree[0].getWidth()), -i+HEIGHT, tree[0]));
 		}
@@ -59,7 +59,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 
 		// Ozone
-		GameEnvironment ozone = new GameEnvironment();
+		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,100,100);
 		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
