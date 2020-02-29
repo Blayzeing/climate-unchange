@@ -35,7 +35,7 @@ public class InputHandler implements KeyListener
         else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)
 	    player.xVel = Player.SPEED;
         else if (e.getKeyCode() == KeyEvent.VK_SPACE)
-            System.out.println("Action");//w.jump();
+	    player.action();
         else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)
             player.yVel = -Player.SPEED;
         else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)
