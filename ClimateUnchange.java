@@ -20,7 +20,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
-	private int levelLength = 5000;
+	private int levelLength = 900;
 
 	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
@@ -34,23 +34,43 @@ public class ClimateUnchange extends SimpleDisplay{
 
 		
 		// acidRain
-		GameEnvironment acidRain = new GameEnvironment();
+		GameEnvironment acidRain = new GameEnvironment(levelLength);
 		acidRain.bgColor = Color.GREEN;
 //		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
 
 		// load acidRain sprites
 		BufferedImage[] rain = new BufferedImage[3];
-		for (int i = 1; i < rain.length; i++) rain[i-1] = Sprite.loadImage("assets/acidrain" + i + ".png");
+		for (int i = 0; i < rain.length; i++) rain[i] = Sprite.loadImage("assets/acidrain" + (i+1) + ".png");
 		BufferedImage[] tree = new BufferedImage[2];
-		for (int i = 1; i < tree.length; i++) tree[i-1] = Sprite.loadImage("assets/tree" + i + ".png");
+		for (int i = 0; i < tree.length; i++) tree[i] = Sprite.loadImage("assets/tree" + (i+1) + ".png");
 		BufferedImage[] grass = new BufferedImage[5];
-		for (int i = 1; i < grass.length; i++) grass[i-1] = Sprite.loadImage("assets/grass" + i + ".png");
-		
-		// add in trees
-		for (int i = 0; i < levelLength - HEIGHT; i += 75)
+		for (int i = 0; i < grass.length; i++) grass[i] = Sprite.loadImage("assets/grass" + (i+1) + ".png");
+		BufferedImage[] rock = new BufferedImage[2];
+		for (int i = 0; i < rock.length; i++) rock[i] = Sprite.loadImage("assets/rock" + (i+1) + ".png");
+
+		// add in acid rain
+		for (int i = 500; i < levelLength+HEIGHT; i += 100)
 		{
-			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-tree[0].getWidth()), -i+HEIGHT, tree[0]));
+			acidRain.addWorldPlaneSprite(new KillableSprite(randInt(0, WIDTH-rain[0].getWidth()), -i+HEIGHT, rain[randInt(0,rain.length)]));
 		}
+		// add in trees
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 50)
+		{
+			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-tree[0].getWidth()), -i+HEIGHT, tree[randInt(0,tree.length)]));
+		}
+		// add in grass
+		for (int i = 0; i < levelLength+HEIGHT; i += 10)
+		{
+			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-grass[0].getWidth()), -i+HEIGHT, grass[randInt(0,grass.length)]));
+		}
+		// add in rocks
+		for (int i = 0; i < levelLength+HEIGHT/3; i += 200)
+		{
+			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
+		}
+
+
+
 
 		player = new Player(400,400, acidRain);
 		acidRain.entities.add(player);
@@ -59,7 +79,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 
 		// Ozone
-		GameEnvironment ozone = new GameEnvironment();
+		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,100,100);
 		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
@@ -113,6 +133,6 @@ public class ClimateUnchange extends SimpleDisplay{
 
 	private static int randInt(int min, int max)
 	{
-		return ThreadLocalRandom.current().nextInt(min, max + 1);
+		return ThreadLocalRandom.current().nextInt(min, max);
 	}
 }

@@ -2,6 +2,7 @@ import blayzeTechUtils.env.*;
 import blayzeTechUtils.env.nonpolyshapes.CircleBoundedEntity;
 import blayzeTechUtils.math.NVector;
 import java.util.*;
+import java.awt.image.BufferedImage;
 
 public class KillableSprite extends Sprite implements Actionable {
 
@@ -10,6 +11,18 @@ public class KillableSprite extends Sprite implements Actionable {
 	public KillableSprite(double x, double y, String path, int columns, int rows, float fps)
 	{
 		super(x, y, path, columns, rows, fps);
+	}
+	public KillableSprite(double x, double y, String path)
+	{
+		super(x, y, path);
+	}
+	public KillableSprite(double x, double y, BufferedImage img, int columns, int rows, float fps)
+	{
+		super(x, y, img, columns, rows, fps);
+	}
+	public KillableSprite(double x, double y, BufferedImage img)
+	{
+		super(x, y, img);
 	}
 
 	@Override

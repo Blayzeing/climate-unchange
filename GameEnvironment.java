@@ -7,9 +7,17 @@ public class GameEnvironment extends Environment {
 	public PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public Color bgColor = Color.WHITE;
 
+	private int levelLength;
+
+	public GameEnvironment(int levelLength)
+	{
+		super();
+		this.levelLength = levelLength;
+	}
+
 	public void addWorldPlaneSprite(Sprite s)
 	{
-		this.entities.add(s);
+		this.entities.add(0, s);
 		s.setParent(worldPlane);
 	}
 	public void updateElements()
@@ -27,6 +35,7 @@ public class GameEnvironment extends Environment {
 		}
 		for(AbstractEntity e : killable)
 			this.entities.remove(e);
-		worldPlane.setY(worldPlane.getY()+2);
+		if (worldPlane.getY() < levelLength)
+			worldPlane.setY(worldPlane.getY()+2);
 	}
 }
