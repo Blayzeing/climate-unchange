@@ -1,19 +1,21 @@
 import blayzeTechUtils.env.*;
 import blayzeTechUtils.env.nonpolyshapes.CircleBoundedEntity;
 import blayzeTechUtils.math.NVector;
+import blayzeTechUtils.math.Point;
 import blayzeTechUtils.math.StaticPoint;
 import java.util.*;
 
 public class Player extends Sprite {
 
+	public static final Point ORIGIN = new Point(0,0);
 	public static final double SPEED = 7;
 	public double xVel, yVel;
 	
 	public GameEnvironment env;
 
-	public Player(double x, double y, GameEnvironment env, PolygonEntity worldPlane)
+	public Player(double x, double y, GameEnvironment env)
 	{
-		super("images/test.png", new TPPolygonEntity(400,400, worldPlane));
+		super(x,y, "images/test.png");
 		xVel = 0;
 		yVel = 0;
 		this.env = env;
@@ -29,7 +31,9 @@ public class Player extends Sprite {
 
 	public void action()
 	{
-		ArrayList<AbstractEntity> collidedObjects = env.getEntitiesAt(this,this);
+		System.out.println("ACTION:");
+		ArrayList<AbstractEntity> collidedObjects = env.getEntitiesAt(this.projectToWorld(ORIGIN),this);
+		System.out.println(collidedObjects);
 		if(collidedObjects == null)
 			return;
 		for(AbstractEntity obj : collidedObjects)

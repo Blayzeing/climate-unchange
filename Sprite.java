@@ -7,9 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Sprite extends AbstractEntity {
+public class Sprite extends TPPolygonEntity {
 	
-	protected AbstractEntity physicsBox;
 	private BufferedImage img;
 
 	private int xOffset = 0, yOffset = 0;
@@ -21,6 +20,7 @@ public class Sprite extends AbstractEntity {
 	private long lastTime = System.currentTimeMillis();
 	private int interval = 42;
 	private int totalFrames = 1; // Storing this for speed reasons.
+	private boolean centered = true;
 
 	public int frame = 0;
 	public boolean play = true;
@@ -28,10 +28,9 @@ public class Sprite extends AbstractEntity {
 
 	public boolean markedForDeath = false;
 
-	public Sprite(String path, AbstractEntity physBox, int columns, int rows, float fps)
+	public Sprite(double x, double y, String path, int columns, int rows, float fps)
 	{
-		super(0,0);
-		physicsBox = physBox;
+		super(x,y);
 
 		img = null;
 		try
@@ -53,11 +52,12 @@ public class Sprite extends AbstractEntity {
 		this.totalFrames = columns*rows;
 		this.renderWidth = frameWidth;
 		this.renderHeight = frameHeight;
-		center(true);
+
+		PolygonEntities.addRectangleTo(this, renderWidth, renderHeight, true);
 	}
-	public Sprite(String path, AbstractEntity physBox)
+	public Sprite(double x, double y, String path)
 	{
-		this(path, physBox, 1, 1, 24);
+		this(x, y, path, 1, 1, (float)24);
 	}
 	public void center()
 	{
@@ -67,79 +67,28 @@ public class Sprite extends AbstractEntity {
 	{
 		this.renderWidth = w;
 		this.renderHeight = h;
+		center(centered);
 	}
 	public void center(boolean c)
 	{
-		if(c)
-		{
-			xOffset = renderWidth/2;
-			yOffset = renderHeight/2;
-		}else{
-			xOffset = 0;
-			yOffset = 0;
-		}
+		this.clearPoints();
+		PolygonEntities.addRectangleTo(this, renderWidth, renderHeight, c);
+		centered = c;
 	}
 
 	
 	@Override
 	public void draw(Graphics2D g)
 	{
-		if(rows == 1 && columns == 1)
-			g.drawImage(img, (int)physicsBox.getX() - xOffset, (int)physicsBox.getY() - yOffset, null);
-		else{
-			int x = frame%columns;
-			int y = frame/columns;
-			g.drawImage(img, (int)physicsBox.getX() - xOffset, (int)physicsBox.getY() - yOffset, 
-					 (int)physicsBox.getX() + renderWidth - xOffset, (int)physicsBox.getY() + renderHeight - yOffset,
-				         x*frameWidth, y*frameHeight, (x+1)*frameWidth, (y+1)*frameHeight, null);
-		}
-		physicsBox.draw(g);
-	}
-	@Override
-	public DistancedHit hitScan(double x1, double y1, double x2, double y2)
-	{
-		return physicsBox.hitScan(x1, y1, x2, y2);
-	}
-	@Override
-	public boolean contains(double x, double y)
-	{
-		return physicsBox.contains(x,y);
-	}
-	@Override
-	public boolean contains(StaticPoint p)
-	{
-		return physicsBox.contains(p);
-	}
-	@Override
-	public boolean contains(StaticPoint[] ps)
-	{
-		return physicsBox.contains(ps);
-	}
-	@Override
-	public boolean contains(ArrayList<StaticPoint> ps)
-	{
-		return physicsBox.contains(ps);
-	}
+		int x = frame%columns;
+		int y = frame/columns;
+		Point renderStart = this.getGlobalPoint(0);
+		Point renderEnd = this.getGlobalPoint(2);
+		g.drawImage(img, (int)renderStart.getX(), (int)renderStart.getY(),
+				 (int)renderEnd.getX(), (int)renderEnd.getY(), 
+				 x*frameWidth, y*frameHeight, (x+1)*frameWidth, (y+1)*frameHeight, null);
 
-	@Override
-	public void setX(double x)
-	{
-		physicsBox.setX(x);
-	}
-	@Override
-	public void setY(double y)
-	{
-		physicsBox.setY(y);
-	}
-	@Override
-	public double getX()
-	{
-		return physicsBox.getX();
-	}
-	@Override
-	public double getY()
-	{
-		return physicsBox.getY();
+		super.draw(g);
 	}
 
 	public void update(long time)

@@ -4,9 +4,9 @@ import blayzeTechUtils.math.NVector;
 import java.util.*;
 
 public class KillableSprite extends Sprite implements Actionable {
-	public KillableSprite(String path, AbstractEntity physBox, int columns, int rows, float fps)
+	public KillableSprite(double x, double y, String path, int columns, int rows, float fps)
 	{
-		super(path, physBox, columns, rows, fps);
+		super(x, y, path, columns, rows, fps);
 	}
 
 	@Override

@@ -14,32 +14,31 @@ public class ClimateUnchange extends SimpleDisplay{
 	private long lastTime = System.currentTimeMillis();
 	private GameEnvironment[] envs;
 	private int currentEnvironment = 0;
-	private Sprite timeZap = new Sprite("images/time-zap.png", new NullEntity(), 2, 11, (float)27);
-
-	private StaticPoint[] triangle = new StaticPoint[]{new StaticPoint(0,0), new StaticPoint(50,100), new StaticPoint(100,0)};
+	private Sprite timeZap = new Sprite(0,0,"images/time-zap.png", 2, 11, (float)27);
 
 
-	private PolygonEntity worldPlane = new PolygonEntity(0,0);
+	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
 	{
 		super(1280, 720, "Climate Unchange", true, true);
 		g = this.getGraphics2D();
 
+		// acidRain
 		GameEnvironment acidRain = new GameEnvironment();
+		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
 		GameEnvironment ozone = new GameEnvironment();
 
 		player = new Player(400,400, acidRain);
+		acidRain.addWorldPlaneSprite(player);
+		
 		timeZap.center(false);
 		timeZap.setRenderDims(1280,720);
 		timeZap.playOnce = true;
-
-		acidRain.entities.add(player);
-		acidRain.entities.add(new KillableSprite("images/test2.png",
-					new TPPolygonEntity(400,400,triangle, worldPane), 2, 1, 7));
-
-
-		ozone.entities.add(player);
 		acidRain.entities.add(timeZap);
+
+
+		// Ozone
+		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
 
 		this.addKeyListener(new InputHandler(player));
