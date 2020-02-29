@@ -1,9 +1,11 @@
 import blayzeTechUtils.env.*;
 import java.util.*;
+import java.awt.Color;
 
 public class GameEnvironment extends Environment {
 
-	public PolygonEntity worldPlane = new PolygonEntity(0,200);
+	public PolygonEntity worldPlane = new PolygonEntity(0,0);
+	public Color bgColor = Color.WHITE;
 
 	public void addWorldPlaneSprite(Sprite s)
 	{

@@ -20,25 +20,29 @@ public class ClimateUnchange extends SimpleDisplay{
 	//private PolygonEntity worldPlane = new PolygonEntity(0,0);
 	public ClimateUnchange()
 	{
+		// Setup
 		super(1280, 720, "Climate Unchange", true, true);
 		g = this.getGraphics2D();
+		timeZap.center(false);
+		timeZap.setRenderDims(1280,720);
+		timeZap.playOnce = true;
 
+		
 		// acidRain
 		GameEnvironment acidRain = new GameEnvironment();
+		acidRain.bgColor = Color.GREEN;
 		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
-		GameEnvironment ozone = new GameEnvironment();
 
 		player = new Player(400,400, acidRain);
 		acidRain.addWorldPlaneSprite(player);
 		
-		timeZap.center(false);
-		timeZap.setRenderDims(1280,720);
-		timeZap.playOnce = true;
 		acidRain.entities.add(timeZap);
 
 
 		// Ozone
-		ozone.entities.add(player);
+		GameEnvironment ozone = new GameEnvironment();
+		ozone.bgColor = new Color(180,100,100);
+		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
 
 		this.addKeyListener(new InputHandler(player));
@@ -64,7 +68,7 @@ public class ClimateUnchange extends SimpleDisplay{
 	public void render()
 	{
 		g.setColor(Color.BLACK);
-		this.fill(Color.WHITE);
+		this.fill(envs[currentEnvironment].bgColor);
 		envs[currentEnvironment].draw(g);
 		this.repaint();
 	}

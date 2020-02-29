@@ -53,7 +53,7 @@ public class Sprite extends TPPolygonEntity {
 		this.renderWidth = frameWidth;
 		this.renderHeight = frameHeight;
 
-		PolygonEntities.addRectangleTo(this, renderWidth, renderHeight, true);
+		center(true);
 	}
 	public Sprite(double x, double y, String path)
 	{

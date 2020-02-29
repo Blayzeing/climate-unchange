@@ -10,7 +10,7 @@ public class KillableSprite extends Sprite implements Actionable {
 	}
 
 	@Override
-	public void action(Environment env)
+	public void action(GameEnvironment env)
 	{
 		this.markedForDeath = true;
 	}
