@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 public class KillableSprite extends Sprite implements Actionable {
 
 	public double yMovement = 0;
+	public int health = 1;
 
 	public KillableSprite(double x, double y, String path, int columns, int rows, float fps)
 	{
@@ -28,7 +29,9 @@ public class KillableSprite extends Sprite implements Actionable {
 	@Override
 	public void action(GameEnvironment env)
 	{
-		this.markedForDeath = true;
+		health -= 10;
+		if (health <= 0)
+			this.markedForDeath = true;
 	}
 
 	@Override

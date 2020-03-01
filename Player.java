@@ -16,7 +16,7 @@ public class Player extends Sprite {
 
 	public Player(double x, double y, GameEnvironment env)
 	{
-		super(x,y, "images/test.png");
+		super(x,y, "assets/leta.png", 2, 1, 10);
 		xVel = 0;
 		yVel = 0;
 		this.env = env;
