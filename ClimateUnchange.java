@@ -32,10 +32,12 @@ public class ClimateUnchange extends SimpleDisplay{
 		timeZap.setRenderDims(WIDTH,HEIGHT);
 		timeZap.playOnce = true;
 
+		player = new Player(400,400, null);
 		
 		// acidRain
 		GameEnvironment acidRain = new GameEnvironment(levelLength);
-		acidRain.bgColor = Color.GREEN;
+		acidRain.bgColor = new Color(0, 200, 0);
+		acidRain.addWorldPlaneSprite(player);
 //		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
 
 		// load acidRain sprites
@@ -78,8 +80,6 @@ public class ClimateUnchange extends SimpleDisplay{
 
 
 
-		player = new Player(400,400, acidRain);
-		acidRain.addWorldPlaneSprite(player);
 		
 		acidRain.entities.add(timeZap);
 
