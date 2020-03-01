@@ -12,3 +12,5 @@ fight to climate change in a very direct manner while still reminding players of
 As with most games made at game jams, this was rather rushed and the end result differs from our goal quite significantly. It
 is the first 2D game to test the use of the [Blayze Tech Utils](https://github.com/Blayzeing/blayzeTechUtils) tools. It may well
 be the last.
+
+Run either by running the compile and run shell script (compileandrun.sh) or run `$ javac *.java` followed by `$ java ClimateUnchange` to compile and then run the game.
