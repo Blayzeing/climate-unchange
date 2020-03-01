@@ -37,7 +37,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		// title level
 		GameEnvironment titleLevel = new GameEnvironment(0, 8000);
 //		titleLevel.bgColor = new Color(0, 0, 0);
-		titleLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, HEIGHT/2, "assets/titlescreen.png", 1, 2, (float)0.2));
+		titleLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, HEIGHT/2, "assets/titlescreen.png", 1, 2, 0.18f));
 
 
 		
@@ -91,6 +91,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		// Ozone
 		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,40,40);
+		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
 		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
 
