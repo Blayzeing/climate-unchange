@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class ClimateUnchange extends SimpleDisplay{
+public class ClimateUnchange extends SimpleDisplay {
 
 	private Player player;
 	private Graphics2D g;
@@ -17,6 +17,7 @@ public class ClimateUnchange extends SimpleDisplay{
 	private GameEnvironment[] envs;
 	private int currentEnvironment = 0;
 	private Sprite timeZap = new Sprite(0,0,"images/time-zap.png", 2, 11, (float)27);
+	private Sprite healthBar = new Sprite(0,0,"assets/thermometer1.png");
 
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
@@ -31,6 +32,8 @@ public class ClimateUnchange extends SimpleDisplay{
 		timeZap.center(false);
 		timeZap.setRenderDims(WIDTH,HEIGHT);
 		timeZap.playOnce = true;
+		healthBar.center(false);
+		healthBar.setX(1190);
 
 		player = new Player(400,400, null);
 
@@ -86,6 +89,7 @@ public class ClimateUnchange extends SimpleDisplay{
 
 		
 		acidRain.entities.add(timeZap);
+		acidRain.entities.add(healthBar);
 
 
 		// Ozone
@@ -94,6 +98,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
 		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
+		ozone.entities.add(healthBar);
 
 		// load Ozone sprites
 		BufferedImage[] cfc = new BufferedImage[3];
@@ -180,7 +185,8 @@ public class ClimateUnchange extends SimpleDisplay{
 			{
 				cu.update();
 				cu.render();
-				Thread.sleep(10);
+				//Thread.sleep(1000/15);
+				Thread.sleep(15);
 			}
 		}catch(InterruptedException e){
 			System.out.println("ERROR:");
