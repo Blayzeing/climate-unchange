@@ -87,8 +87,6 @@ public class Sprite extends TPPolygonEntity {
 		g.drawImage(img, (int)renderStart.getX(), (int)renderStart.getY(),
 				 (int)renderEnd.getX(), (int)renderEnd.getY(), 
 				 x*frameWidth, y*frameHeight, (x+1)*frameWidth, (y+1)*frameHeight, null);
-
-		super.draw(g);
 	}
 
 	public void update(long time)
