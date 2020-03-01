@@ -10,6 +10,7 @@ public class GameEnvironment extends Environment {
 	private int levelLength;
 	public double levelDuration;
 	public HealthBar healthBar;
+	public int scrollingSpeed = 3;
 
 	public GameEnvironment(int levelLength, double levelDuration)
 	{
@@ -19,7 +20,7 @@ public class GameEnvironment extends Environment {
 	}
 	public GameEnvironment(int levelLength)
 	{
-		this(levelLength, 30000);
+		this(levelLength, 33333);
 	}
 
 	public void addWorldPlaneSprite(Sprite s)
@@ -59,6 +60,6 @@ public class GameEnvironment extends Environment {
 			this.entities.remove(e);
 		}
 		if (worldPlane.getY() < levelLength)
-			worldPlane.setY(worldPlane.getY()+3);
+			worldPlane.setY(worldPlane.getY()+scrollingSpeed);
 	}
 }
