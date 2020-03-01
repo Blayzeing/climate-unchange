@@ -35,17 +35,17 @@ public class ClimateUnchange extends SimpleDisplay{
 		player = new Player(400,400, null);
 
 		// title level
-		GameEnvironment titleLevel = new GameEnvironment(0, 3000);
+		GameEnvironment titleLevel = new GameEnvironment(0, 8000);
 //		titleLevel.bgColor = new Color(0, 0, 0);
-		titleLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, HEIGHT/2, "assets/titlescreen.png", 1, 2, (float)0.5));
+		titleLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, HEIGHT/2, "assets/titlescreen.png", 1, 2, (float)0.2));
 
 
 		
 		// acidRain
 		GameEnvironment acidRain = new GameEnvironment(levelLength);
 		acidRain.bgColor = new Color(0, 200, 0);
+		acidRain.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/acidrainflavour1.png"));
 		acidRain.addWorldPlaneSprite(player);
-//		acidRain.addWorldPlaneSprite(new KillableSprite(200,200,"images/test2.png", 2, 1, 2));
 
 		// load acidRain sprites
 		BufferedImage[] rain = new BufferedImage[3];
