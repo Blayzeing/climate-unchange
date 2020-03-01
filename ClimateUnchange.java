@@ -33,6 +33,13 @@ public class ClimateUnchange extends SimpleDisplay{
 		timeZap.playOnce = true;
 
 		player = new Player(400,400, null);
+
+		// title level
+		GameEnvironment titleLevel = new GameEnvironment(0, 3000);
+//		titleLevel.bgColor = new Color(0, 0, 0);
+		titleLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, HEIGHT/2, "assets/titlescreen.png", 1, 2, (float)0.5));
+
+
 		
 		// acidRain
 		GameEnvironment acidRain = new GameEnvironment(levelLength);
@@ -134,10 +141,10 @@ public class ClimateUnchange extends SimpleDisplay{
 		}
 
 		this.addKeyListener(new InputHandler(player));
-		envs = new GameEnvironment[]{acidRain, ozone};
-		currentEnvironment = 1;
+		envs = new GameEnvironment[]{titleLevel, acidRain, ozone};
+		currentEnvironment = 0;
 
-		player.env = ozone;
+		player.env = titleLevel;
 		player.setParent(player.env.worldPlane);
 	}
 
