@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 public class KillableSprite extends Sprite implements Actionable {
 
 	public double yMovement = 0;
+	public double xMovement = 0;
 	public int health = 1;
 
 	public KillableSprite(double x, double y, String path, int columns, int rows, float fps)
@@ -38,6 +39,7 @@ public class KillableSprite extends Sprite implements Actionable {
 	public void update(long time)
 	{
 		this.setY(this.getY() + yMovement);
+		this.setX(this.getX() + xMovement);
 		super.update(time);
 	}
 }

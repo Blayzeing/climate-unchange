@@ -86,8 +86,6 @@ public class ClimateUnchange extends SimpleDisplay {
 		{
 			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
-
-		
 		acidRain.entities.add(timeZap);
 		acidRain.entities.add(healthBar);
 
@@ -96,7 +94,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,40,40);
 		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
-		ozone.entities.add(player);
+		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
 		ozone.entities.add(healthBar);
 
@@ -146,8 +144,62 @@ public class ClimateUnchange extends SimpleDisplay {
 			ozone.addWorldPlaneSprite(new Sprite(WIDTH/2, -i+HEIGHT, tile));
 		}
 
+
+
+		// SeaLevel
+		GameEnvironment seaLevel = new GameEnvironment(levelLength);
+		seaLevel.bgColor = new Color(0,10,200);
+		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/sealevelflavour1.png"));
+		seaLevel.addWorldPlaneSprite(player);
+		seaLevel.entities.add(timeZap);
+
+		BufferedImage[] turtle = new BufferedImage[2];
+		for (int i = 0; i < turtle.length; i++) turtle[i] = Sprite.loadImage("assets/turtle" + (i+1) + ".png");
+		BufferedImage[] wave = new BufferedImage[2];
+		for (int i = 0; i < wave.length; i++) wave[i] = Sprite.loadImage("assets/wave" + (i+1) + ".png");
+
+		// add in waves
+		for (int i = 500; i < levelLength*2.2; i += 300)
+		{
+			int dir = randInt(0,wave.length);
+			int pos = 0;
+			int xmov = 0;
+			if (dir == 0)
+			{
+				pos = randInt(WIDTH-wave[0].getWidth()-300, WIDTH-wave[0].getWidth()) + 220 + (int)((double)(i)*0.1);
+				xmov = -1;
+			}
+			else
+			{
+				pos = randInt(0, 300-wave[0].getWidth()) - 220 - (int)((double)(i)*0.1);
+				xmov = 1;
+			}
+			KillableSprite awave = new KillableSprite(pos+200, -i+HEIGHT, wave[dir]);
+			awave.yMovement = 2;
+			awave.xMovement = xmov;
+			seaLevel.addWorldPlaneSprite(awave);
+		}
+		// add in BOSS
+		KillableSprite seaBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/garbage1.png");
+		seaBoss.health = 200;
+		seaLevel.addWorldPlaneSprite(seaBoss);
+		// add in turtles
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 90)
+		{
+			seaLevel.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-turtle[0].getWidth()), -i+HEIGHT, turtle[randInt(0,turtle.length)]));
+		}
+		// add in rocks
+		for (int i = 0; i < levelLength+HEIGHT/3; i += 210)
+		{
+			seaLevel.addWorldPlaneSprite(new Sprite(randInt(200, WIDTH-rock[0].getWidth())-100, -i+HEIGHT, rock[randInt(0,rock.length)]));
+		}
+		// the beach
+		seaLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, -1000, "assets/beach1.png"));
+
+
+
 		this.addKeyListener(new InputHandler(player));
-		envs = new GameEnvironment[]{titleLevel, acidRain, ozone};
+		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel};
 		currentEnvironment = 0;
 
 		player.env = titleLevel;
