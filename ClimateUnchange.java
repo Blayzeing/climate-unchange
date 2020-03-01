@@ -83,8 +83,6 @@ public class ClimateUnchange extends SimpleDisplay{
 		{
 			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
-
-		
 		acidRain.entities.add(timeZap);
 
 
@@ -92,7 +90,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,40,40);
 		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
-		ozone.entities.add(player);
+		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
 
 		// load Ozone sprites
@@ -140,6 +138,8 @@ public class ClimateUnchange extends SimpleDisplay{
 		{
 			ozone.addWorldPlaneSprite(new Sprite(WIDTH/2, -i+HEIGHT, tile));
 		}
+
+
 
 		this.addKeyListener(new InputHandler(player));
 		envs = new GameEnvironment[]{titleLevel, acidRain, ozone};
