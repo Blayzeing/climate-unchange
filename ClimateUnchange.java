@@ -83,13 +83,18 @@ public class ClimateUnchange extends SimpleDisplay{
 
 		// Ozone
 		GameEnvironment ozone = new GameEnvironment(levelLength);
-		ozone.bgColor = new Color(180,100,100);
+		ozone.bgColor = new Color(180,40,40);
 		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
 
 		// load Ozone sprites
 		BufferedImage[] cfc = new BufferedImage[3];
 		for (int i = 0; i < cfc.length; i++) cfc[i] = Sprite.loadImage("assets/cfc" + (i+1) + ".png");
+		BufferedImage refridgerator = Sprite.loadImage("assets/refridgerator1.png");
+		BufferedImage ozonesprite = Sprite.loadImage("assets/ozone1.png");
+		BufferedImage tile = Sprite.loadImage("assets/tile1.png");
+		BufferedImage[] utensil = new BufferedImage[2];
+		for (int i = 0; i < utensil.length; i++) utensil[i] = Sprite.loadImage("assets/utensil" + (i+1) + ".png");
 
 		// add in cfcs
 		for (int i = 500; i < levelLength*2.22; i += 100)
@@ -97,6 +102,35 @@ public class ClimateUnchange extends SimpleDisplay{
 			KillableSprite drop = new KillableSprite(randInt(0, WIDTH-cfc[0].getWidth()), -i+HEIGHT, cfc[randInt(0,cfc.length)]);
 			drop.yMovement = 2;
 			ozone.addWorldPlaneSprite(drop);
+		}
+		// add in BOSS
+		KillableSprite ozoneBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/currys1.png");
+		ozoneBoss.health = 200;
+		ozone.addWorldPlaneSprite(ozoneBoss);
+		// add in refridgerators
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 80)
+		{
+			ozone.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-refridgerator.getWidth()), -i+HEIGHT, refridgerator));
+		}
+		// add in ozone
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 300)
+		{
+			ozone.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-ozonesprite.getWidth()), -i+HEIGHT, ozonesprite));
+		}
+		// add in utensils
+		for (int i = 0; i < levelLength+HEIGHT; i += 30)
+		{
+			ozone.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-utensil[0].getWidth()), -i+HEIGHT, utensil[randInt(0,utensil.length)]));
+		}
+		// add in rocks
+		for (int i = 0; i < levelLength+HEIGHT/3; i += 400)
+		{
+			ozone.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
+		}
+		// add in tile
+		for (int i = 0; i < levelLength+HEIGHT+42; i += 41)
+		{
+			ozone.addWorldPlaneSprite(new Sprite(WIDTH/2, -i+HEIGHT, tile));
 		}
 
 		this.addKeyListener(new InputHandler(player));
