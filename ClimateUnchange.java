@@ -97,7 +97,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		for (int i = 0; i < utensil.length; i++) utensil[i] = Sprite.loadImage("assets/utensil" + (i+1) + ".png");
 
 		// add in cfcs
-		for (int i = 500; i < levelLength*2.22; i += 100)
+		for (int i = 500; i < levelLength*2; i += 100)
 		{
 			KillableSprite drop = new KillableSprite(randInt(0, WIDTH-cfc[0].getWidth()), -i+HEIGHT, cfc[randInt(0,cfc.length)]);
 			drop.yMovement = 2;
@@ -144,7 +144,7 @@ public class ClimateUnchange extends SimpleDisplay{
 	public void update()
 	{
 		long currentTime = System.currentTimeMillis();
-		if(currentTime - lastTime > 30000)
+		if(currentTime - lastTime > envs[currentEnvironment].levelDuration)
 		{
 			currentEnvironment = (currentEnvironment+1)%envs.length;
 			player.env = envs[currentEnvironment];

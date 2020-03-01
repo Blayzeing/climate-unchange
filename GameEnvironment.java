@@ -8,11 +8,17 @@ public class GameEnvironment extends Environment {
 	public Color bgColor = Color.WHITE;
 
 	private int levelLength;
+	public double levelDuration;
 
-	public GameEnvironment(int levelLength)
+	public GameEnvironment(int levelLength, double levelDuration)
 	{
 		super();
 		this.levelLength = levelLength;
+		this.levelDuration = levelDuration;
+	}
+	public GameEnvironment(int levelLength)
+	{
+		this(levelLength, 30000);
 	}
 
 	public void addWorldPlaneSprite(Sprite s)
