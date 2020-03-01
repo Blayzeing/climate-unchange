@@ -9,6 +9,7 @@ public class KillableSprite extends Sprite implements Actionable {
 	public double yMovement = 0;
 	public double xMovement = 0;
 	public int health = 1;
+	public boolean isBoss = false;
 
 	public KillableSprite(double x, double y, String path, int columns, int rows, float fps)
 	{

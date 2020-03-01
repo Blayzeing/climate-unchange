@@ -17,7 +17,8 @@ public class ClimateUnchange extends SimpleDisplay {
 	private GameEnvironment[] envs;
 	private int currentEnvironment = 0;
 	private Sprite timeZap = new Sprite(0,0,"images/time-zap.png", 2, 11, (float)27);
-	private Sprite healthBar = new Sprite(0,0,"assets/thermometer1.png");
+	private Sprite healthBarSprite = new Sprite(0,0,"assets/thermometer1.png");
+	private HealthBar healthBar = new HealthBar(healthBarSprite);
 
 	private static final int WIDTH = 1280;
 	private static final int HEIGHT = 720;
@@ -32,8 +33,8 @@ public class ClimateUnchange extends SimpleDisplay {
 		timeZap.center(false);
 		timeZap.setRenderDims(WIDTH,HEIGHT);
 		timeZap.playOnce = true;
-		healthBar.center(false);
-		healthBar.setX(1190);
+		healthBarSprite.center(false);
+		healthBarSprite.setX(1190);
 
 		player = new Player(400,400, null);
 
@@ -69,6 +70,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		}
 		// add in BOSS
 		KillableSprite acidBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/coalplant1.png");
+		acidBoss.isBoss = true;
 		acidBoss.health = 200;
 		acidRain.addWorldPlaneSprite(acidBoss);
 		// add in trees
@@ -87,7 +89,9 @@ public class ClimateUnchange extends SimpleDisplay {
 			acidRain.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
 		acidRain.entities.add(timeZap);
+		acidRain.entities.add(healthBarSprite);
 		acidRain.entities.add(healthBar);
+		acidRain.healthBar = healthBar;
 
 
 		// Ozone
@@ -96,7 +100,9 @@ public class ClimateUnchange extends SimpleDisplay {
 		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
 		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
+		ozone.entities.add(healthBarSprite);
 		ozone.entities.add(healthBar);
+		ozone.healthBar = healthBar;
 
 		// load Ozone sprites
 		BufferedImage[] cfc = new BufferedImage[3];
@@ -116,6 +122,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		}
 		// add in BOSS
 		KillableSprite ozoneBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/currys1.png");
+		ozoneBoss.isBoss = true;
 		ozoneBoss.health = 200;
 		ozone.addWorldPlaneSprite(ozoneBoss);
 		// add in refridgerators
@@ -181,6 +188,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		}
 		// add in BOSS
 		KillableSprite seaBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/garbage1.png");
+		seaBoss.isBoss = true;
 		seaBoss.health = 200;
 		seaLevel.addWorldPlaneSprite(seaBoss);
 		// add in turtles
@@ -199,10 +207,10 @@ public class ClimateUnchange extends SimpleDisplay {
 
 
 		this.addKeyListener(new InputHandler(player));
-		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel};
+		envs = new GameEnvironment[]{acidRain, titleLevel, acidRain, ozone, seaLevel};
 		currentEnvironment = 0;
 
-		player.env = titleLevel;
+		player.env = acidRain;//titleLevel;
 		player.setParent(player.env.worldPlane);
 	}
 

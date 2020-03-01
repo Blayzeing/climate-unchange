@@ -9,6 +9,7 @@ public class GameEnvironment extends Environment {
 
 	private int levelLength;
 	public double levelDuration;
+	public HealthBar healthBar;
 
 	public GameEnvironment(int levelLength, double levelDuration)
 	{
@@ -36,11 +37,27 @@ public class GameEnvironment extends Environment {
 				Sprite s = (Sprite)e;
 				if(s.markedForDeath)
 					killable.add(e);
+				if(s instanceof KillableSprite &&  s.getGlobalPoint(0).getY() > 720)
+				{
+					if(!((KillableSprite)s).isBoss)
+						this.healthBar.changeHealth(0.01);
+					else
+						this.healthBar.changeHealth(0.15);
+					killable.add(e);
+				}
 				s.update(System.currentTimeMillis());
 			}
 		}
 		for(AbstractEntity e : killable)
+		{
+			KillableSprite s = (KillableSprite)e;
+			if(s.markedForDeath)
+				if(!s.isBoss)
+					this.healthBar.changeHealth(-0.02);
+				else
+					this.healthBar.changeHealth(-0.15);
 			this.entities.remove(e);
+		}
 		if (worldPlane.getY() < levelLength)
 			worldPlane.setY(worldPlane.getY()+3);
 	}
