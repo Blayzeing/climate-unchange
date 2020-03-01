@@ -49,6 +49,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		GameEnvironment acidRain = new GameEnvironment(levelLength);
 		acidRain.bgColor = new Color(0, 200, 0);
 		acidRain.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/acidrainflavour1.png"));
+		acidRain.addWorldPlaneSprite(new KillableSprite(WIDTH/2,-levelLength+HEIGHT+HEIGHT/2,"assets/acidrainflavour2.png"));
 		acidRain.addWorldPlaneSprite(player);
 
 		// load acidRain sprites
@@ -98,6 +99,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		GameEnvironment ozone = new GameEnvironment(levelLength);
 		ozone.bgColor = new Color(180,40,40);
 		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/ozonerainflavour1.png"));
+		ozone.addWorldPlaneSprite(new KillableSprite(WIDTH/2,-levelLength+HEIGHT+HEIGHT/2,"assets/ozoneflavour2.png"));
 		ozone.addWorldPlaneSprite(player);
 		ozone.entities.add(timeZap);
 		ozone.entities.add(healthBarSprite);
@@ -157,6 +159,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		GameEnvironment seaLevel = new GameEnvironment(levelLength);
 		seaLevel.bgColor = new Color(0,10,200);
 		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/sealevelflavour1.png"));
+		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,-levelLength+HEIGHT+HEIGHT/2,"assets/sealevelflavour2.png"));
 		seaLevel.addWorldPlaneSprite(player);
 		seaLevel.entities.add(timeZap);
 
@@ -226,6 +229,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		extremeW.bgColor = new Color(0, 100, 0);
 		extremeW.scrollingSpeed = 6;
 		KillableSprite xfs = new KillableSprite(WIDTH/2,0,"assets/extremeflavour1.png");
+		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,-(levelLength*2)+HEIGHT+HEIGHT/2,"assets/extremefavour2.png"));
 		xfs.yMovement = -3;
 		extremeW.addWorldPlaneSprite(xfs);
 		extremeW.addWorldPlaneSprite(player);
@@ -277,7 +281,7 @@ public class ClimateUnchange extends SimpleDisplay {
 
 
 		this.addKeyListener(new InputHandler(player));
-		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel};
+		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel, extremeW};
 		currentEnvironment = 0;
 
 		player.env = titleLevel;
