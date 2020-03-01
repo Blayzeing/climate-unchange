@@ -276,10 +276,6 @@ public class ClimateUnchange extends SimpleDisplay {
 			extremeW.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
 
-
-
-
-
 		this.addKeyListener(new InputHandler(player));
 		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel, extremeW};
 		currentEnvironment = 0;
@@ -293,7 +289,9 @@ public class ClimateUnchange extends SimpleDisplay {
 		long currentTime = System.currentTimeMillis();
 		if(currentTime - lastTime > envs[currentEnvironment].levelDuration)
 		{
-			currentEnvironment = (currentEnvironment+1)%envs.length;
+			currentEnvironment = (currentEnvironment+1);
+			if(currentEnvironment == envs.length)
+				System.exit(0);
 			player.env = envs[currentEnvironment];
 			player.setParent(player.env.worldPlane);
 			player.setY(Player.SPAWN_POINT.getY());
