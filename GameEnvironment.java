@@ -18,7 +18,7 @@ public class GameEnvironment extends Environment {
 	}
 	public GameEnvironment(int levelLength)
 	{
-		this(levelLength, 30000);
+		this(levelLength, 33333);
 	}
 
 	public void addWorldPlaneSprite(Sprite s)

@@ -155,6 +155,8 @@ public class ClimateUnchange extends SimpleDisplay {
 
 		BufferedImage[] turtle = new BufferedImage[2];
 		for (int i = 0; i < turtle.length; i++) turtle[i] = Sprite.loadImage("assets/turtle" + (i+1) + ".png");
+		BufferedImage[] icecube = new BufferedImage[2];
+		for (int i = 0; i < icecube.length; i++) icecube[i] = Sprite.loadImage("assets/icecube" + (i+1) + ".png");
 		BufferedImage[] wave = new BufferedImage[2];
 		for (int i = 0; i < wave.length; i++) wave[i] = Sprite.loadImage("assets/wave" + (i+1) + ".png");
 
@@ -180,16 +182,31 @@ public class ClimateUnchange extends SimpleDisplay {
 			seaLevel.addWorldPlaneSprite(awave);
 		}
 		// add in BOSS
-		KillableSprite seaBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/garbage1.png");
+		KillableSprite seaBoss = new KillableSprite(WIDTH/2, -levelLength+HEIGHT/2, "assets/oilymcoilface1.png");
 		seaBoss.health = 200;
 		seaLevel.addWorldPlaneSprite(seaBoss);
 		// add in turtles
-		for (int i = 200; i < levelLength+HEIGHT/3; i += 90)
+		for (int i = 200; i < levelLength+HEIGHT/3; i += 190)
 		{
 			seaLevel.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-turtle[0].getWidth()), -i+HEIGHT, turtle[randInt(0,turtle.length)]));
 		}
+		// add in icecubes
+		for (int i = 0; i < levelLength+HEIGHT/3; i += 310)
+		{
+
+			if (randInt(0,2) == 0)
+			{
+				seaLevel.addWorldPlaneSprite(new Sprite(randInt(0, 300), -i+HEIGHT, icecube[randInt(0,icecube.length)]));
+			}
+			else
+			{
+				seaLevel.addWorldPlaneSprite(new Sprite(randInt(WIDTH-icecube[0].getWidth()-300, WIDTH-icecube[0].getWidth()), -i+HEIGHT, icecube[randInt(0,icecube.length)]));
+			}
+
+
+		}
 		// add in rocks
-		for (int i = 0; i < levelLength+HEIGHT/3; i += 210)
+		for (int i = 0; i < levelLength+HEIGHT/3; i += 410)
 		{
 			seaLevel.addWorldPlaneSprite(new Sprite(randInt(200, WIDTH-rock[0].getWidth())-100, -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
