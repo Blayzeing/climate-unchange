@@ -193,7 +193,6 @@ public class ClimateUnchange extends SimpleDisplay {
 		// add in icecubes
 		for (int i = 0; i < levelLength+HEIGHT/3; i += 310)
 		{
-
 			if (randInt(0,2) == 0)
 			{
 				seaLevel.addWorldPlaneSprite(new Sprite(randInt(0, 300), -i+HEIGHT, icecube[randInt(0,icecube.length)]));
@@ -202,8 +201,6 @@ public class ClimateUnchange extends SimpleDisplay {
 			{
 				seaLevel.addWorldPlaneSprite(new Sprite(randInt(WIDTH-icecube[0].getWidth()-300, WIDTH-icecube[0].getWidth()), -i+HEIGHT, icecube[randInt(0,icecube.length)]));
 			}
-
-
 		}
 		// add in rocks
 		for (int i = 0; i < levelLength+HEIGHT/3; i += 410)
@@ -215,11 +212,67 @@ public class ClimateUnchange extends SimpleDisplay {
 
 
 
+
+		// extreme weather
+		GameEnvironment extremeW = new GameEnvironment(levelLength*2);
+		extremeW.bgColor = new Color(0, 100, 0);
+		extremeW.scrollingSpeed = 6;
+		KillableSprite xfs = new KillableSprite(WIDTH/2,0,"assets/extremeflavour1.png");
+		xfs.yMovement = -3;
+		extremeW.addWorldPlaneSprite(xfs);
+		extremeW.addWorldPlaneSprite(player);
+
+		BufferedImage[] rain2 = new BufferedImage[3];
+		for (int i = 0; i < rain2.length; i++) rain2[i] = Sprite.loadImage("assets/rain" + (i+1) + ".png");
+		BufferedImage[] lightning = new BufferedImage[3];
+		for (int i = 0; i < lightning.length; i++) lightning[i] = Sprite.loadImage("assets/lightning" + (i+1) + ".png");
+		BufferedImage[] tornado = new BufferedImage[2];
+		for (int i = 0; i < tornado.length; i++) tornado[i] = Sprite.loadImage("assets/tornado" + (i+1) + ".png");
+
+		// add in rain
+		for (int i = 500; i < levelLength*2; i += 120)
+		{
+			extremeW.addWorldPlaneSprite(new KillableSprite(randInt(0, WIDTH-rain2[0].getWidth()), -i+HEIGHT, rain2[randInt(0,rain2.length)]));
+		}
+		// add in lightning
+		for (int i = 533; i < levelLength*2; i += 130)
+		{
+			extremeW.addWorldPlaneSprite(new KillableSprite(randInt(0, WIDTH-lightning[0].getWidth()), -i+HEIGHT, lightning[randInt(0,lightning.length)]));
+		}
+		// add in tornado
+		for (int i = 566; i < levelLength*2; i += 170)
+		{
+			extremeW.addWorldPlaneSprite(new KillableSprite(randInt(0, WIDTH-tornado[0].getWidth()), -i+HEIGHT, tornado[randInt(0,tornado.length)]));
+		}
+		// add in BOSS
+		KillableSprite extremeBoss = new KillableSprite(WIDTH/2, -levelLength*2+HEIGHT/2, "assets/june20071.png");
+		extremeBoss.health = 1000;
+		extremeW.addWorldPlaneSprite(extremeBoss);
+		// add in trees
+		for (int i = 200; i < levelLength*2+HEIGHT; i += 100)
+		{
+			extremeW.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-tree[0].getWidth()), -i+HEIGHT, tree[randInt(0,tree.length)]));
+		}
+		// add in grass
+		for (int i = 0; i < levelLength*2+HEIGHT; i += 40)
+		{
+			extremeW.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-grass[0].getWidth()), -i+HEIGHT, grass[randInt(0,grass.length)]));
+		}
+		// add in rocks
+		for (int i = 0; i < levelLength*2+HEIGHT; i += 320)
+		{
+			extremeW.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
+		}
+
+
+
+
+
 		this.addKeyListener(new InputHandler(player));
-		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel};
+		envs = new GameEnvironment[]{extremeW, titleLevel, acidRain, ozone, seaLevel};
 		currentEnvironment = 0;
 
-		player.env = titleLevel;
+		player.env = extremeW;
 		player.setParent(player.env.worldPlane);
 	}
 

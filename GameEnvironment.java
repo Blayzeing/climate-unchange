@@ -9,6 +9,7 @@ public class GameEnvironment extends Environment {
 
 	private int levelLength;
 	public double levelDuration;
+	public int scrollingSpeed = 3;
 
 	public GameEnvironment(int levelLength, double levelDuration)
 	{
@@ -42,6 +43,6 @@ public class GameEnvironment extends Environment {
 		for(AbstractEntity e : killable)
 			this.entities.remove(e);
 		if (worldPlane.getY() < levelLength)
-			worldPlane.setY(worldPlane.getY()+3);
+			worldPlane.setY(worldPlane.getY()+scrollingSpeed);
 	}
 }
