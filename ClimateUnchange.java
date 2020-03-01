@@ -144,7 +144,7 @@ public class ClimateUnchange extends SimpleDisplay{
 		// SeaLevel
 		GameEnvironment seaLevel = new GameEnvironment(levelLength);
 		seaLevel.bgColor = new Color(0,10,200);
-//		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/sealevelflavour1.png"));
+		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,0,"assets/sealevelflavour1.png"));
 		seaLevel.addWorldPlaneSprite(player);
 		seaLevel.entities.add(timeZap);
 
