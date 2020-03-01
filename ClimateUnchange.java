@@ -87,11 +87,23 @@ public class ClimateUnchange extends SimpleDisplay{
 		ozone.entities.add(player);
 		ozone.entities.add(timeZap);
 
+		// load Ozone sprites
+		BufferedImage[] cfc = new BufferedImage[3];
+		for (int i = 0; i < cfc.length; i++) cfc[i] = Sprite.loadImage("assets/cfc" + (i+1) + ".png");
+
+		// add in cfcs
+		for (int i = 500; i < levelLength*2.22; i += 100)
+		{
+			KillableSprite drop = new KillableSprite(randInt(0, WIDTH-cfc[0].getWidth()), -i+HEIGHT, cfc[randInt(0,cfc.length)]);
+			drop.yMovement = 2;
+			ozone.addWorldPlaneSprite(drop);
+		}
+
 		this.addKeyListener(new InputHandler(player));
 		envs = new GameEnvironment[]{acidRain, ozone};
-		currentEnvironment = 0;
+		currentEnvironment = 1;
 
-		player.env = acidRain;
+		player.env = ozone;
 		player.setParent(player.env.worldPlane);
 	}
 
