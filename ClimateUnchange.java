@@ -162,6 +162,7 @@ public class ClimateUnchange extends SimpleDisplay {
 		seaLevel.addWorldPlaneSprite(new KillableSprite(WIDTH/2,-levelLength+HEIGHT+HEIGHT/2,"assets/sealevelflavour2.png"));
 		seaLevel.addWorldPlaneSprite(player);
 		seaLevel.entities.add(timeZap);
+		seaLevel.healthBar = healthBar;
 
 		BufferedImage[] turtle = new BufferedImage[2];
 		for (int i = 0; i < turtle.length; i++) turtle[i] = Sprite.loadImage("assets/turtle" + (i+1) + ".png");
@@ -220,6 +221,8 @@ public class ClimateUnchange extends SimpleDisplay {
 		}
 		// the beach
 		seaLevel.addWorldPlaneSprite(new Sprite(WIDTH/2, -1000, "assets/beach1.png"));
+		seaLevel.entities.add(healthBarSprite);
+		seaLevel.entities.add(healthBar);
 
 
 
@@ -233,6 +236,8 @@ public class ClimateUnchange extends SimpleDisplay {
 		xfs.yMovement = -3;
 		extremeW.addWorldPlaneSprite(xfs);
 		extremeW.addWorldPlaneSprite(player);
+		extremeW.entities.add(timeZap);
+		extremeW.healthBar = healthBar;
 
 		BufferedImage[] rain2 = new BufferedImage[3];
 		for (int i = 0; i < rain2.length; i++) rain2[i] = Sprite.loadImage("assets/rain" + (i+1) + ".png");
@@ -275,6 +280,8 @@ public class ClimateUnchange extends SimpleDisplay {
 		{
 			extremeW.addWorldPlaneSprite(new Sprite(randInt(0, WIDTH-rock[0].getWidth()), -i+HEIGHT, rock[randInt(0,rock.length)]));
 		}
+		extremeW.entities.add(healthBarSprite);
+		extremeW.entities.add(healthBar);
 
 		this.addKeyListener(new InputHandler(player));
 		envs = new GameEnvironment[]{titleLevel, acidRain, ozone, seaLevel, extremeW};
@@ -291,7 +298,10 @@ public class ClimateUnchange extends SimpleDisplay {
 		{
 			currentEnvironment = (currentEnvironment+1);
 			if(currentEnvironment == envs.length)
+			{
+				System.out.println("Your score: " + ((0.5 - healthBar.health) * 20000));
 				System.exit(0);
+			}
 			player.env = envs[currentEnvironment];
 			player.setParent(player.env.worldPlane);
 			player.setY(Player.SPAWN_POINT.getY());
