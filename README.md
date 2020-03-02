@@ -16,3 +16,4 @@ be the last. We were pleasantly surprised when this game won the Jam's award for
 Run either by running the compile and run shell script (compileandrun.sh) or run `$ javac *.java` followed by `$ java ClimateUnchange` to compile and then run the game.
 
 To play, move Leta around the screen using either WASD or the arrow keys, then PUNCH with the spacebar!
+The symptoms of climate change are dealt with easily with one punch, while the causes require multiple punches to sort out. Monitor how much of an effective Leta is having on the climate using the thermometer on the right. If it gets too hot it's over in more ways than one!
