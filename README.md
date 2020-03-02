@@ -14,3 +14,5 @@ is the first 2D game to test the use of the [Blayze Tech Utils](https://github.c
 be the last. We were pleasantly surprised when this game won the Jam's award for "Funniest Game".
 
 Run either by running the compile and run shell script (compileandrun.sh) or run `$ javac *.java` followed by `$ java ClimateUnchange` to compile and then run the game.
+
+To play, move Leta around the screen using either WASD or the arrow keys, then PUNCH with the spacebar!
